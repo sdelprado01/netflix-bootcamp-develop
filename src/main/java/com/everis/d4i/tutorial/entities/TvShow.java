@@ -1,20 +1,12 @@
 package com.everis.d4i.tutorial.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.time.Year;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "TV_SHOWS")
@@ -26,7 +18,7 @@ public class TvShow implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "NAME")
+	@Column(name = "NAME", unique = true)
 	private String name;
 
 	@Column(name = "SHORT_DESC", nullable = true)
@@ -41,9 +33,14 @@ public class TvShow implements Serializable {
 	@Column(name = "RECOMMENDED_AGE")
 	private byte recommendedAge;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CATEGORY_ID", nullable = false)
-	private Category category;
+	@JsonManagedReference
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "CATEGORIES_TV_SHOWS",
+			joinColumns = {@JoinColumn(name = "TV_SHOW_ID")},
+			inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID")}
+	)
+	private List<Category> categories;
 
 	@Column(name = "ADVERTISING", nullable = true)
 	private String advertising;
@@ -99,12 +96,12 @@ public class TvShow implements Serializable {
 		this.recommendedAge = recommendedAge;
 	}
 
-	public Category getCategory() {
-		return category;
+	public List<Category> getCategories() {
+		return categories;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 	public String getAdvertising() {

@@ -3,14 +3,7 @@ package com.everis.d4i.tutorial.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "CATEGORIES")
@@ -25,7 +18,7 @@ public class Category implements Serializable {
 	@Column(name = "NAME", unique = true)
 	private String name;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
 	private List<TvShow> tvShows;
 
 	public Long getId() {
