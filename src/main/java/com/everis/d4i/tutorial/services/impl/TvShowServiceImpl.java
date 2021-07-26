@@ -82,5 +82,18 @@ public class TvShowServiceImpl implements TvShowService {
 		return modelMapper.map(tvShow, TvShowResponseRest.class);
 	}
 
+	@Override
+	public TvShowResponseRest updateNameFromTvShow(Long id, String name) throws NetflixException {
+		TvShow tvShow = tvShowRepository.getOne(id);
+		tvShow.setName(name);
+		try {
+			tvShow = tvShowRepository.save(tvShow);
+		} catch (final Exception e) {
+			LOGGER.error(ExceptionConstants.INTERNAL_SERVER_ERROR, e);
+			throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
+		}
+		return modelMapper.map(tvShow, TvShowResponseRest.class);
+	}
+
 
 }

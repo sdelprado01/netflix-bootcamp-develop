@@ -15,4 +15,6 @@ public interface TvShowService {
 	TvShowResponseRest createTvShow(TvShowRequestRest tvShowRequestRest) throws NetflixException;
 
 	TvShowResponseRest updateCategoriesFromTvShow(Long id, List<Long> categoriesId) throws NetflixException;
+
+	TvShowResponseRest updateNameFromTvShow(Long id, String name) throws NetflixException;
 }
