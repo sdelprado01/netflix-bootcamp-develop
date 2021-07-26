@@ -93,5 +93,17 @@ public class TvShowServiceImpl implements TvShowService {
 		return modelMapper.map(tvShow, TvShowResponseRest.class);
 	}
 
+	@Override
+	public List<TvShowResponseRest> deleteTvShowById(Long id) throws NetflixException {
+		try {
+			tvShowRepository.delete(tvShowRepository.getOne(id));
+		} catch (final Exception e) {
+			LOGGER.error(ExceptionConstants.INTERNAL_SERVER_ERROR, e);
+			throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
+		}
+		return tvShowRepository.findAll().stream()
+				.map(tvShow -> modelMapper.map(tvShow, TvShowResponseRest.class)).collect(Collectors.toList());
+	}
+
 
 }

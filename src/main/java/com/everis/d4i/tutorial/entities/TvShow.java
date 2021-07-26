@@ -45,7 +45,7 @@ public class TvShow implements Serializable {
 	@Column(name = "ADVERTISING", nullable = true)
 	private String advertising;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tvShow")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tvShow", orphanRemoval = true)
 	private List<Season> seasons;
 
 	public Long getId() {
