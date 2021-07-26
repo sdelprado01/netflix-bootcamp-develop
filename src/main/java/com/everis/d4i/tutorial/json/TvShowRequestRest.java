@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TvShowRest implements Serializable {
+public class TvShowRequestRest implements Serializable {
 
 	private static final long serialVersionUID = 4916713904971425156L;
 

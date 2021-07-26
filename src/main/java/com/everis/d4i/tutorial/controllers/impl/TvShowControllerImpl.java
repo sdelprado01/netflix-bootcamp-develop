@@ -2,7 +2,6 @@ package com.everis.d4i.tutorial.controllers.impl;
 
 import java.util.List;
 
-import com.everis.d4i.tutorial.json.CategoryRest;
 import com.everis.d4i.tutorial.json.TvShowResponseRest;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.everis.d4i.tutorial.controllers.TvShowController;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
-import com.everis.d4i.tutorial.json.TvShowRest;
+import com.everis.d4i.tutorial.json.TvShowRequestRest;
 import com.everis.d4i.tutorial.responses.NetflixResponse;
 import com.everis.d4i.tutorial.services.TvShowService;
 import com.everis.d4i.tutorial.utils.constants.CommonConstants;
@@ -48,9 +47,19 @@ public class TvShowControllerImpl implements TvShowController {
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public NetflixResponse<TvShowResponseRest> createTvShow(
-			@ApiParam(value = RestConstants.PARAMETER_CATEGORY, required = true) @RequestBody @Valid final TvShowRest tvShowRest) throws NetflixException {
+			@ApiParam(value = RestConstants.PARAMETER_CATEGORY, required = true) @RequestBody @Valid final TvShowRequestRest tvShowRequestRest) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
-				tvShowService.createTvShow(tvShowRest));
+				tvShowService.createTvShow(tvShowRequestRest));
 	}
+
+	@Override
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping(value = RestConstants.RESOURCE_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+	public NetflixResponse<TvShowResponseRest> updateCategoriesFromTvShow(@PathVariable Long id, @RequestBody @Valid final List<Long> categoriesId)
+			throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				tvShowService.updateCategoriesFromTvShow(id, categoriesId));
+	}
+
 
 }

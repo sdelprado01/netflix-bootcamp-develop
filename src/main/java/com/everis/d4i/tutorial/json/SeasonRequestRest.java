@@ -5,14 +5,13 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ChapterRest implements Serializable {
+public class SeasonRequestRest implements Serializable {
 
-	private static final long serialVersionUID = 8725949484031409482L;
+	private static final long serialVersionUID = 180802329613616000L;
 
 	private Long id;
 	private short number;
 	private String name;
-	private short duration;
 
 	public Long getId() {
 		return id;
@@ -36,14 +35,6 @@ public class ChapterRest implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public short getDuration() {
-		return duration;
-	}
-
-	public void setDuration(short duration) {
-		this.duration = duration;
 	}
 
 }

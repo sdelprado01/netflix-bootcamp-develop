@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.everis.d4i.tutorial.entities.Category;
 import com.everis.d4i.tutorial.exceptions.InternalServerErrorException;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
-import com.everis.d4i.tutorial.json.CategoryRest;
+import com.everis.d4i.tutorial.json.CategoryRequestRest;
 import com.everis.d4i.tutorial.repositories.CategoryRepository;
 import com.everis.d4i.tutorial.services.CategoryService;
 import com.everis.d4i.tutorial.utils.constants.ExceptionConstants;
@@ -27,23 +27,23 @@ public class CategoryServiceImpl implements CategoryService {
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-	public List<CategoryRest> getCategories() throws NetflixException {
+	public List<CategoryRequestRest> getCategories() throws NetflixException {
 
-		return categoryRepository.findAll().stream().map(category -> modelMapper.map(category, CategoryRest.class))
+		return categoryRepository.findAll().stream().map(category -> modelMapper.map(category, CategoryRequestRest.class))
 				.collect(Collectors.toList());
 
 	}
 
-	public CategoryRest createCategories(final CategoryRest categoryRest) throws NetflixException {
+	public CategoryRequestRest createCategories(final CategoryRequestRest categoryRequestRest) throws NetflixException {
 		Category category = new Category();
-		category.setName(categoryRest.getName());
+		category.setName(categoryRequestRest.getName());
 		try {
 			category = categoryRepository.save(category);
 		} catch (final Exception e) {
 			LOGGER.error(ExceptionConstants.INTERNAL_SERVER_ERROR, e);
 			throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
 		}
-		return modelMapper.map(category, CategoryRest.class);
+		return modelMapper.map(category, CategoryRequestRest.class);
 	}
 
 }
