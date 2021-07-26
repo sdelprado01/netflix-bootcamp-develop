@@ -1,4 +1,4 @@
-package com.everis.d4i.tutorial.json;
+package com.everis.d4i.tutorial.json.request;
 
 import java.io.Serializable;
 

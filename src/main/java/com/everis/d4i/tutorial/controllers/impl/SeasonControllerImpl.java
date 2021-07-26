@@ -2,6 +2,7 @@ package com.everis.d4i.tutorial.controllers.impl;
 
 import java.util.List;
 
+import com.everis.d4i.tutorial.json.response.SeasonResponseRest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.everis.d4i.tutorial.controllers.SeasonController;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
-import com.everis.d4i.tutorial.json.SeasonRequestRest;
+import com.everis.d4i.tutorial.json.request.SeasonRequestRest;
 import com.everis.d4i.tutorial.responses.NetflixResponse;
 import com.everis.d4i.tutorial.services.SeasonService;
 import com.everis.d4i.tutorial.utils.constants.CommonConstants;
@@ -29,7 +30,7 @@ public class SeasonControllerImpl implements SeasonController {
 	@Override
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public NetflixResponse<List<SeasonRequestRest>> getSeasonsByTvShow(Long tvShowId) throws NetflixException {
+	public NetflixResponse<List<SeasonResponseRest>> getSeasonsByTvShow(Long tvShowId) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
 				seasonService.getSeasonsByTvShow(tvShowId));
 	}
@@ -37,7 +38,7 @@ public class SeasonControllerImpl implements SeasonController {
 	@Override
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(value = RestConstants.RESOURCE_NUMBER, produces = MediaType.APPLICATION_JSON_VALUE)
-	public NetflixResponse<SeasonRequestRest> getSeasonByTvShowIdAndSeasonNumber(@PathVariable Long tvShowId,
+	public NetflixResponse<SeasonResponseRest> getSeasonByTvShowIdAndSeasonNumber(@PathVariable Long tvShowId,
                                                                                  @PathVariable short number) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
 				seasonService.getSeasonByTvShowIdAndSeasonNumber(tvShowId, number));

@@ -2,7 +2,7 @@ package com.everis.d4i.tutorial.controllers.impl;
 
 import java.util.List;
 
-import com.everis.d4i.tutorial.json.TvShowResponseRest;
+import com.everis.d4i.tutorial.json.response.TvShowResponseRest;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.everis.d4i.tutorial.controllers.TvShowController;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
-import com.everis.d4i.tutorial.json.TvShowRequestRest;
+import com.everis.d4i.tutorial.json.request.TvShowRequestRest;
 import com.everis.d4i.tutorial.responses.NetflixResponse;
 import com.everis.d4i.tutorial.services.TvShowService;
 import com.everis.d4i.tutorial.utils.constants.CommonConstants;

@@ -1,5 +1,6 @@
-package com.everis.d4i.tutorial.json;
+package com.everis.d4i.tutorial.json.response;
 
+import com.everis.d4i.tutorial.json.request.CategoryRequestRest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;

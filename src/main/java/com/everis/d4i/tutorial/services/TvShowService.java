@@ -3,8 +3,8 @@ package com.everis.d4i.tutorial.services;
 import java.util.List;
 
 import com.everis.d4i.tutorial.exceptions.NetflixException;
-import com.everis.d4i.tutorial.json.TvShowResponseRest;
-import com.everis.d4i.tutorial.json.TvShowRequestRest;
+import com.everis.d4i.tutorial.json.response.TvShowResponseRest;
+import com.everis.d4i.tutorial.json.request.TvShowRequestRest;
 
 public interface TvShowService {
 

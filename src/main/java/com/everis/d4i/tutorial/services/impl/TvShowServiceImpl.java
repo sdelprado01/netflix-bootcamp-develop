@@ -8,11 +8,9 @@ import javax.persistence.EntityNotFoundException;
 
 import com.everis.d4i.tutorial.entities.TvShow;
 import com.everis.d4i.tutorial.exceptions.InternalServerErrorException;
-import com.everis.d4i.tutorial.json.TvShowResponseRest;
+import com.everis.d4i.tutorial.json.response.TvShowResponseRest;
 import com.everis.d4i.tutorial.repositories.CategoryRepository;
 import com.everis.d4i.tutorial.utils.constants.ExceptionConstants;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.NullValueMappingStrategy;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.everis.d4i.tutorial.exceptions.NetflixException;
 import com.everis.d4i.tutorial.exceptions.NotFoundException;
-import com.everis.d4i.tutorial.json.TvShowRequestRest;
+import com.everis.d4i.tutorial.json.request.TvShowRequestRest;
 import com.everis.d4i.tutorial.repositories.TvShowRepository;
 import com.everis.d4i.tutorial.services.TvShowService;
 
