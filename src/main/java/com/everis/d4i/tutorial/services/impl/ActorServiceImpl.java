@@ -4,9 +4,12 @@ import com.everis.d4i.tutorial.entities.Actor;
 import com.everis.d4i.tutorial.exceptions.InternalServerErrorException;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
 import com.everis.d4i.tutorial.exceptions.NotFoundException;
+import com.everis.d4i.tutorial.json.request.ActorRequestRest;
 import com.everis.d4i.tutorial.json.response.ActorResponseRest;
 import com.everis.d4i.tutorial.json.response.CategoryResponseRest;
+import com.everis.d4i.tutorial.json.response.TvShowResponseRest;
 import com.everis.d4i.tutorial.repositories.ActorRepository;
+import com.everis.d4i.tutorial.repositories.ChapterRepository;
 import com.everis.d4i.tutorial.services.ActorService;
 import com.everis.d4i.tutorial.utils.constants.ExceptionConstants;
 import org.modelmapper.ModelMapper;
@@ -24,6 +27,8 @@ public class ActorServiceImpl implements ActorService {
 
     @Autowired
     ActorRepository actorRepository;
+    @Autowired
+    ChapterRepository chapterRepository;
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -43,5 +48,18 @@ public class ActorServiceImpl implements ActorService {
         } catch (EntityNotFoundException entityNotFoundException) {
             throw new NotFoundException(entityNotFoundException.getMessage());
         }
+    }
+
+    @Override
+    public ActorResponseRest createActor(ActorRequestRest actorRequestRest) throws NetflixException {
+        Actor actor = modelMapper.map(actorRequestRest, Actor.class);
+        actor.setChapters(chapterRepository.findByIdIn(actorRequestRest.getChapters()));
+        try {
+            actor = actorRepository.save(actor);
+        } catch (final Exception e) {
+            LOGGER.error(ExceptionConstants.INTERNAL_SERVER_ERROR, e);
+            throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
+        }
+        return modelMapper.map(actor, ActorResponseRest.class);
     }
 }
