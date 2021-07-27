@@ -22,4 +22,6 @@ public interface ActorService {
 
     ActorResponseRest updateActorChaptersById(Long id, List<Long> chaptersId) throws NetflixException;
 
+    List<ActorResponseRest> deleteActorById(Long id) throws NetflixException;
+
 }

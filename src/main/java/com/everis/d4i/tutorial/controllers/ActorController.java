@@ -21,4 +21,6 @@ public interface ActorController {
     NetflixResponse<ActorResponseRest> updateActorBirthYearById(Long id, Year year) throws NetflixException;
 
     NetflixResponse<ActorResponseRest> updateActorChaptersById(Long id, List<Long> chaptersId) throws NetflixException;
+
+    NetflixResponse<List<ActorResponseRest>> deleteActorById(Long id) throws NetflixException;
 }

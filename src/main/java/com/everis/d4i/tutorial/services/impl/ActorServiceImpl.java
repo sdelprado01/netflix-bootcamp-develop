@@ -102,4 +102,15 @@ public class ActorServiceImpl implements ActorService {
         }
         return modelMapper.map(actor, ActorResponseRest.class);
     }
+
+    @Override
+    public List<ActorResponseRest> deleteActorById(Long id) throws NetflixException {
+        try {
+            actorRepository.deleteById(id);
+        } catch (EntityNotFoundException entityNotFoundException) {
+            throw new NotFoundException(entityNotFoundException.getMessage());
+        }
+        return actorRepository.findAll().stream().map(actor -> modelMapper.map(actor, ActorResponseRest.class))
+                .collect(Collectors.toList());
+    }
 }
