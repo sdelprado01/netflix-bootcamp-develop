@@ -13,6 +13,8 @@ public class RestConstants {
 	public static final String RESOURCE_ID = "/{id}";
 	public static final String RESOURCE_NUMBER = "/{number}";
 	public static final String RESOURCE_NAME = "/name";
+	public static final String RESOURCE_ACTORS = "/actors";
+
 
 	public static final String PARAMETER_CATEGORY = "categories";
 

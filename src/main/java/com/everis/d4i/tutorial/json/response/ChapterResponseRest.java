@@ -3,6 +3,7 @@ package com.everis.d4i.tutorial.json.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ChapterResponseRest implements Serializable {
@@ -13,6 +14,7 @@ public class ChapterResponseRest implements Serializable {
     private short number;
     private String name;
     private short duration;
+    private List<ActorResponseRest> actors;
 
     public Long getId() {
         return id;
@@ -44,5 +46,13 @@ public class ChapterResponseRest implements Serializable {
 
     public void setDuration(short duration) {
         this.duration = duration;
+    }
+
+    public List<ActorResponseRest> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<ActorResponseRest> actors) {
+        this.actors = actors;
     }
 }
