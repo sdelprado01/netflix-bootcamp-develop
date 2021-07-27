@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Year;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,45 @@ public class ActorServiceImpl implements ActorService {
     public ActorResponseRest createActor(ActorRequestRest actorRequestRest) throws NetflixException {
         Actor actor = modelMapper.map(actorRequestRest, Actor.class);
         actor.setChapters(chapterRepository.findByIdIn(actorRequestRest.getChapters()));
+        try {
+            actor = actorRepository.save(actor);
+        } catch (final Exception e) {
+            LOGGER.error(ExceptionConstants.INTERNAL_SERVER_ERROR, e);
+            throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
+        }
+        return modelMapper.map(actor, ActorResponseRest.class);
+    }
+
+    @Override
+    public ActorResponseRest updateActorNameById(Long id, String name) throws NetflixException {
+        Actor actor = actorRepository.getOne(id);
+        actor.setName(name);
+        try {
+            actor = actorRepository.save(actor);
+        } catch (final Exception e) {
+            LOGGER.error(ExceptionConstants.INTERNAL_SERVER_ERROR, e);
+            throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
+        }
+        return modelMapper.map(actor, ActorResponseRest.class);
+    }
+
+    @Override
+    public ActorResponseRest updateActorBirthYearById(Long id, Year birthYear) throws NetflixException {
+        Actor actor = actorRepository.getOne(id);
+        actor.setBirthYear(birthYear);
+        try {
+            actor = actorRepository.save(actor);
+        } catch (final Exception e) {
+            LOGGER.error(ExceptionConstants.INTERNAL_SERVER_ERROR, e);
+            throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
+        }
+        return modelMapper.map(actor, ActorResponseRest.class);
+    }
+
+    @Override
+    public ActorResponseRest updateActorChaptersById(Long id, List<Long> chaptersId) throws NetflixException {
+        Actor actor = actorRepository.getOne(id);
+        actor.setChapters(chapterRepository.findByIdIn(chaptersId));
         try {
             actor = actorRepository.save(actor);
         } catch (final Exception e) {
