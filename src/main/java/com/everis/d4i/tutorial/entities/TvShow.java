@@ -52,8 +52,8 @@ public class TvShow implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "TV_SHOWS_AWARDS",
-			joinColumns = {@JoinColumn(name = "AWARD_ID")},
-			inverseJoinColumns = {@JoinColumn(name = "TV_SHOW_ID")}
+			joinColumns = {@JoinColumn(name = "TV_SHOW_ID")},
+			inverseJoinColumns = {@JoinColumn(name = "AWARD_ID")}
 	)
 	private List<Award> awards;
 

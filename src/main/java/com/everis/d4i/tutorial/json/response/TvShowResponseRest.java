@@ -18,8 +18,9 @@ public class TvShowResponseRest implements Serializable {
     private String longDescription;
     private Year year;
     private byte recommendedAge;
-    private List<CategoryRequestRest> categories;
+    private List<CategoryResponseRest> categories;
     private String advertising;
+    private List<AwardResponseRest> awards;
 
     public Long getId() {
         return id;
@@ -69,11 +70,11 @@ public class TvShowResponseRest implements Serializable {
         this.recommendedAge = recommendedAge;
     }
 
-    public List<CategoryRequestRest> getCategories() {
+    public List<CategoryResponseRest> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<CategoryRequestRest> categories) {
+    public void setCategories(List<CategoryResponseRest> categories) {
         this.categories = categories;
     }
 
@@ -83,6 +84,14 @@ public class TvShowResponseRest implements Serializable {
 
     public void setAdvertising(String advertising) {
         this.advertising = advertising;
+    }
+
+    public List<AwardResponseRest> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(List<AwardResponseRest> awards) {
+        this.awards = awards;
     }
 }
 

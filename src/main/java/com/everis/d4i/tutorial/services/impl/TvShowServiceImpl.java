@@ -8,7 +8,9 @@ import javax.persistence.EntityNotFoundException;
 
 import com.everis.d4i.tutorial.entities.TvShow;
 import com.everis.d4i.tutorial.exceptions.InternalServerErrorException;
+import com.everis.d4i.tutorial.json.response.AwardResponseRest;
 import com.everis.d4i.tutorial.json.response.TvShowResponseRest;
+import com.everis.d4i.tutorial.repositories.AwardRepository;
 import com.everis.d4i.tutorial.repositories.CategoryRepository;
 import com.everis.d4i.tutorial.utils.constants.ExceptionConstants;
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,8 @@ public class TvShowServiceImpl implements TvShowService {
 	private TvShowRepository tvShowRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private AwardRepository awardRepository;
 
 	private ModelMapper modelMapper = new ModelMapper();
 

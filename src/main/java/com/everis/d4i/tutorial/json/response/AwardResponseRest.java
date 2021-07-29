@@ -10,7 +10,6 @@ public class AwardResponseRest implements Serializable {
 
     private Long id;
     private String name;
-    private List<TvShowResponseRest> tvShows;
 
     public Long getId() {
         return id;
@@ -26,13 +25,5 @@ public class AwardResponseRest implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<TvShowResponseRest> getTvShows() {
-        return tvShows;
-    }
-
-    public void setTvShows(List<TvShowResponseRest> tvShows) {
-        this.tvShows = tvShows;
     }
 }
