@@ -48,6 +48,15 @@ public class TvShow implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tvShow", orphanRemoval = true)
 	private List<Season> seasons;
 
+	@JsonManagedReference
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "TV_SHOWS_AWARDS",
+			joinColumns = {@JoinColumn(name = "AWARD_ID")},
+			inverseJoinColumns = {@JoinColumn(name = "TV_SHOW_ID")}
+	)
+	private List<Award> awards;
+
 	public Long getId() {
 		return id;
 	}
@@ -120,4 +129,11 @@ public class TvShow implements Serializable {
 		this.seasons = seasons;
 	}
 
+	public List<Award> getAwards() {
+		return awards;
+	}
+
+	public void setAwards(List<Award> awards) {
+		this.awards = awards;
+	}
 }
