@@ -12,4 +12,6 @@ public interface TvShowRepository extends JpaRepository<TvShow, Long> {
 
 	List<TvShow> findByCategoriesId(List<Long> categoryIdList);
 
+	List<TvShow> findBySeasonsId(List<Long> seasonsIdList);
+
 }

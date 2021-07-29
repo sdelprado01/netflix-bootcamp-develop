@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.List;
+import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActorResponseRest implements Serializable {
@@ -15,7 +16,7 @@ public class ActorResponseRest implements Serializable {
     private Long id;
     private String name;
     private Year birthYear;
-    private List<ChapterRequestRest> chapters;
+    private List<TvShowResponseRest> tvShows;
 
     public Long getId() {
         return id;
@@ -41,11 +42,21 @@ public class ActorResponseRest implements Serializable {
         this.birthYear = birthYear;
     }
 
-    public List<ChapterRequestRest> getChapters() {
+    /*
+    public List<ChapterResponseRest> getChapters() {
         return chapters;
     }
 
-    public void setChapters(List<ChapterRequestRest> chapters) {
+    public void setChapters(List<ChapterResponseRest> chapters) {
         this.chapters = chapters;
+    }
+     */
+
+    public List<TvShowResponseRest> getTvShows() {
+        return tvShows;
+    }
+
+    public void setTvShows(List<TvShowResponseRest> tvShows) {
+        this.tvShows = tvShows;
     }
 }

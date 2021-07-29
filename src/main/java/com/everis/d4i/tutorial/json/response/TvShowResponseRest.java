@@ -20,7 +20,8 @@ public class TvShowResponseRest implements Serializable {
     private byte recommendedAge;
     private List<CategoryResponseRest> categories;
     private String advertising;
-    private List<AwardResponseRest> awards;
+    //private List<AwardResponseRest> awards;
+    private List<ChapterResponseRest> chapters;
 
     public Long getId() {
         return id;
@@ -86,12 +87,23 @@ public class TvShowResponseRest implements Serializable {
         this.advertising = advertising;
     }
 
+    /*
     public List<AwardResponseRest> getAwards() {
         return awards;
     }
 
     public void setAwards(List<AwardResponseRest> awards) {
         this.awards = awards;
+    }
+
+     */
+
+    public List<ChapterResponseRest> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<ChapterResponseRest> chapters) {
+        this.chapters = chapters;
     }
 }
 

@@ -1,15 +1,18 @@
 package com.everis.d4i.tutorial.services.impl;
 
 import com.everis.d4i.tutorial.entities.Actor;
+import com.everis.d4i.tutorial.entities.Chapter;
+import com.everis.d4i.tutorial.entities.Season;
+import com.everis.d4i.tutorial.entities.TvShow;
 import com.everis.d4i.tutorial.exceptions.InternalServerErrorException;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
 import com.everis.d4i.tutorial.exceptions.NotFoundException;
 import com.everis.d4i.tutorial.json.request.ActorRequestRest;
-import com.everis.d4i.tutorial.json.response.ActorResponseRest;
-import com.everis.d4i.tutorial.json.response.CategoryResponseRest;
-import com.everis.d4i.tutorial.json.response.TvShowResponseRest;
+import com.everis.d4i.tutorial.json.response.*;
 import com.everis.d4i.tutorial.repositories.ActorRepository;
 import com.everis.d4i.tutorial.repositories.ChapterRepository;
+import com.everis.d4i.tutorial.repositories.SeasonRepository;
+import com.everis.d4i.tutorial.repositories.TvShowRepository;
 import com.everis.d4i.tutorial.services.ActorService;
 import com.everis.d4i.tutorial.utils.constants.ExceptionConstants;
 import org.modelmapper.ModelMapper;
@@ -20,7 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Year;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,8 +47,31 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public ActorResponseRest getActorById(Long id) throws NetflixException {
+
+        Actor actor = actorRepository.getOne(id);
+        List<Chapter> participatingChapters = chapterRepository.findByActorsId(Collections.singletonList(actor.getId()));
+        Set<TvShow> participatingTvShows = new HashSet<>();
+        for (Chapter chapter:
+             participatingChapters) {
+            participatingTvShows.add(chapter.getSeason().getTvShow());
+        }
+        //Una lista de Tv Shows en los que ha participado
+
+        List<TvShowResponseRest> tvShowResponseRestList = participatingTvShows.stream()
+                .map(tvShow -> modelMapper.map(tvShow, TvShowResponseRest.class)).collect(Collectors.toList());
+
+        List<ChapterResponseRest> chapterResponseRests = participatingChapters.stream()
+                .map(chapter -> modelMapper.map(chapter, ChapterResponseRest.class)).collect(Collectors.toList());
+
+        for (TvShowResponseRest tvShowResponseRest:
+             tvShowResponseRestList) {
+            tvShowResponseRest.setChapters(chapterResponseRests);
+        }
+
         try {
-            return modelMapper.map(actorRepository.getOne(id), ActorResponseRest.class);
+            ActorResponseRest actorResponseRest = modelMapper.map(actor, ActorResponseRest.class);
+            actorResponseRest.setTvShows(tvShowResponseRestList);
+            return actorResponseRest;
         } catch (EntityNotFoundException entityNotFoundException) {
             throw new NotFoundException(entityNotFoundException.getMessage());
         }
