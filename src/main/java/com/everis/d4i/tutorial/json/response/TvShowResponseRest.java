@@ -22,6 +22,7 @@ public class TvShowResponseRest implements Serializable {
     private String advertising;
     //private List<AwardResponseRest> awards;
     private List<ChapterResponseRest> chapters;
+    private Double rating;
 
     public Long getId() {
         return id;
@@ -104,6 +105,14 @@ public class TvShowResponseRest implements Serializable {
 
     public void setChapters(List<ChapterResponseRest> chapters) {
         this.chapters = chapters;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }
 

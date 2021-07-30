@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.everis.d4i.tutorial.json.response.FilmInfoResponseRest;
 import com.everis.d4i.tutorial.entities.TvShow;
 import com.everis.d4i.tutorial.exceptions.InternalServerErrorException;
-import com.everis.d4i.tutorial.json.response.AwardResponseRest;
 import com.everis.d4i.tutorial.json.response.TvShowResponseRest;
 import com.everis.d4i.tutorial.repositories.AwardRepository;
 import com.everis.d4i.tutorial.repositories.CategoryRepository;
@@ -24,6 +24,7 @@ import com.everis.d4i.tutorial.exceptions.NotFoundException;
 import com.everis.d4i.tutorial.json.request.TvShowRequestRest;
 import com.everis.d4i.tutorial.repositories.TvShowRepository;
 import com.everis.d4i.tutorial.services.TvShowService;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class TvShowServiceImpl implements TvShowService {
@@ -34,6 +35,8 @@ public class TvShowServiceImpl implements TvShowService {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private AwardRepository awardRepository;
+
+	private RestTemplate restTemplate = new RestTemplate();
 
 	private ModelMapper modelMapper = new ModelMapper();
 
@@ -49,13 +52,14 @@ public class TvShowServiceImpl implements TvShowService {
 
 	@Override
 	public TvShowResponseRest getTvShowById(Long id) throws NetflixException {
-
 		try {
-			return modelMapper.map(tvShowRepository.getOne(id), TvShowResponseRest.class);
+			TvShowResponseRest tvShowResponseRest = modelMapper.map(tvShowRepository.getOne(id), TvShowResponseRest.class);
+			FilmInfoResponseRest filmInfoResponseRest = restTemplate.getForObject("http://localhost:8181/film-info/film/" + tvShowResponseRest.getName(), FilmInfoResponseRest.class);
+			tvShowResponseRest.setRating(filmInfoResponseRest.getRate());
+			return tvShowResponseRest;
 		} catch (EntityNotFoundException entityNotFoundException) {
 			throw new NotFoundException(entityNotFoundException.getMessage());
 		}
-
 	}
 
 	@Override

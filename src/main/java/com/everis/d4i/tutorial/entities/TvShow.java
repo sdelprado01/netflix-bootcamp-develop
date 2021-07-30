@@ -136,4 +136,5 @@ public class TvShow implements Serializable {
 	public void setAwards(List<Award> awards) {
 		this.awards = awards;
 	}
+
 }
