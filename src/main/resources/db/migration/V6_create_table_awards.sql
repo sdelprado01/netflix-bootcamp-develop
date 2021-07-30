@@ -1,0 +1,33 @@
+CREATE TABLE  IF NOT EXISTS AWARDS
+(
+	ID		BIGINT(20) NOT NULL AUTO_INCREMENT,
+    NAME		VARCHAR(256) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE IF NOT EXISTS TV_SHOWS_AWARDS
+(
+	AWARD_ID		BIGINT(20) NOT NULL,
+    TV_SHOW_ID	BIGINT(20) NOT NULL,
+    PRIMARY KEY(AWARD_ID,TV_SHOW_ID),
+    CONSTRAINT FK_TV_SHOWS_AWARDS_AWARD_ID
+		FOREIGN KEY (AWARD_ID) REFERENCES AWARDS (ID),
+	CONSTRAINT FK_TV_SHOWS_AWARDS_TV_SHOW_ID
+		FOREIGN KEY (TV_SHOW_ID) REFERENCES TV_SHOWS (ID)
+);
+
+    INSERT INTO AWARDS(ID, NAME) VALUES
+    (1,'Mejor película'),
+    (2,'Mejor actriz principal'),
+    (3,'Mejor serie de comedia'),
+    (4,'Mejor serie de terror'),
+    (5,'Mejor serie de acción'),
+    (6,'Mejor actriz de reparto');
+
+    INSERT INTO TV_SHOWS_AWARDS(AWARD_ID, TV_SHOW_ID) VALUES
+    (2,1),
+    (5,1),
+    (4,2),
+    (3,3),
+    (6,3),
+    (2,3);

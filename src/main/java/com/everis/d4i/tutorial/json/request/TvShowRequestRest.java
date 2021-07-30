@@ -1,12 +1,13 @@
-package com.everis.d4i.tutorial.json;
+package com.everis.d4i.tutorial.json.request;
 
 import java.io.Serializable;
 import java.time.Year;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TvShowRest implements Serializable {
+public class TvShowRequestRest implements Serializable {
 
 	private static final long serialVersionUID = 4916713904971425156L;
 
@@ -16,7 +17,7 @@ public class TvShowRest implements Serializable {
 	private String longDescription;
 	private Year year;
 	private byte recommendedAge;
-	private CategoryRest category;
+	private List<Long> categories;
 	private String advertising;
 
 	public Long getId() {
@@ -67,12 +68,12 @@ public class TvShowRest implements Serializable {
 		this.recommendedAge = recommendedAge;
 	}
 
-	public CategoryRest getCategory() {
-		return category;
+	public List<Long> getCategories() {
+		return categories;
 	}
 
-	public void setCategory(CategoryRest category) {
-		this.category = category;
+	public void setCategories(List<Long> categories) {
+		this.categories = categories;
 	}
 
 	public String getAdvertising() {

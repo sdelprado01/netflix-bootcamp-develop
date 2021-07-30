@@ -3,13 +3,21 @@ package com.everis.d4i.tutorial.controllers;
 import java.util.List;
 
 import com.everis.d4i.tutorial.exceptions.NetflixException;
-import com.everis.d4i.tutorial.json.TvShowRest;
+import com.everis.d4i.tutorial.json.response.TvShowResponseRest;
+import com.everis.d4i.tutorial.json.request.TvShowRequestRest;
 import com.everis.d4i.tutorial.responses.NetflixResponse;
 
 public interface TvShowController {
 
-	NetflixResponse<List<TvShowRest>> getTvShowsByCategory(Long categoryId) throws NetflixException;
+	NetflixResponse<List<TvShowResponseRest>> getTvShowsByCategory(Long categoryId) throws NetflixException;
 
-	NetflixResponse<TvShowRest> getTvShowById(Long id) throws NetflixException;
+	NetflixResponse<TvShowResponseRest> getTvShowById(Long id) throws NetflixException;
 
+	NetflixResponse<TvShowResponseRest> createTvShow(TvShowRequestRest tvShowRequestRest) throws NetflixException;
+
+	NetflixResponse<TvShowResponseRest> updateCategoriesFromTvShow(Long id, List<Long> categoriesId) throws  NetflixException;
+
+	NetflixResponse<TvShowResponseRest> updateNameFromTvShow(Long id, String name) throws  NetflixException;
+
+	NetflixResponse<List<TvShowResponseRest>> deleteTvShowById(Long id) throws  NetflixException;
 }

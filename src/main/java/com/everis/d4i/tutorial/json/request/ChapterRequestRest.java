@@ -1,35 +1,20 @@
-package com.everis.d4i.tutorial.entities;
+package com.everis.d4i.tutorial.json.request;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-@Entity
-@Table(name = "CHAPTERS")
-public class Chapter implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ChapterRequestRest implements Serializable {
 
 	private static final long serialVersionUID = 8725949484031409482L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(name = "NUMBER")
 	private short number;
-
-	@Column(name = "NAME")
 	private String name;
-
-	@Column(name = "DURATION")
 	private short duration;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SEASON_ID", nullable = false)
-	private Season season;
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "chapters")
-	private List<Actor> actors;
+	private List<Long> actors;
 
 	public Long getId() {
 		return id;
@@ -63,12 +48,11 @@ public class Chapter implements Serializable {
 		this.duration = duration;
 	}
 
-	public Season getSeason() {
-		return season;
+	public List<Long> getActors() {
+		return actors;
 	}
 
-	public void setSeason(Season season) {
-		this.season = season;
+	public void setActors(List<Long> actors) {
+		this.actors = actors;
 	}
-
 }
