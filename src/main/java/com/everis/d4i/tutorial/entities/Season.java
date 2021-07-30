@@ -35,7 +35,7 @@ public class Season implements Serializable {
 	@JoinColumn(name = "TV_SHOW_ID", nullable = false)
 	private TvShow tvShow;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "season", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "season")
 	private List<Chapter> chapters;
 
 	public Long getId() {

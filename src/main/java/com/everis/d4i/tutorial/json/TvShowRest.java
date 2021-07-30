@@ -1,55 +1,23 @@
-package com.everis.d4i.tutorial.entities;
+package com.everis.d4i.tutorial.json;
 
 import java.io.Serializable;
 import java.time.Year;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-@Entity
-@Table(name = "TV_SHOWS")
-public class TvShow implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class TvShowRest implements Serializable {
 
 	private static final long serialVersionUID = 4916713904971425156L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(name = "NAME")
 	private String name;
-
-	@Column(name = "SHORT_DESC", nullable = true)
 	private String shortDescription;
-
-	@Column(name = "LONG_DESC", nullable = true)
 	private String longDescription;
-
-	@Column(name = "YEAR")
 	private Year year;
-
-	@Column(name = "RECOMMENDED_AGE")
 	private byte recommendedAge;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CATEGORY_ID", nullable = false)
-	private Category category;
-
-	@Column(name = "ADVERTISING", nullable = true)
+	private CategoryRest category;
 	private String advertising;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tvShow")
-	private List<Season> seasons;
 
 	public Long getId() {
 		return id;
@@ -99,11 +67,11 @@ public class TvShow implements Serializable {
 		this.recommendedAge = recommendedAge;
 	}
 
-	public Category getCategory() {
+	public CategoryRest getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(CategoryRest category) {
 		this.category = category;
 	}
 
@@ -113,14 +81,6 @@ public class TvShow implements Serializable {
 
 	public void setAdvertising(String advertising) {
 		this.advertising = advertising;
-	}
-
-	public List<Season> getSeasons() {
-		return seasons;
-	}
-
-	public void setSeasons(List<Season> seasons) {
-		this.seasons = seasons;
 	}
 
 }

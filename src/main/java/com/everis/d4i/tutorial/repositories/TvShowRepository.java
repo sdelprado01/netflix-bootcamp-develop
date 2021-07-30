@@ -10,8 +10,6 @@ import com.everis.d4i.tutorial.entities.TvShow;
 @Repository
 public interface TvShowRepository extends JpaRepository<TvShow, Long> {
 
-	List<TvShow> findByCategoriesId(List<Long> categoryIdList);
-
-	List<TvShow> findBySeasonsId(List<Long> seasonsIdList);
+	List<TvShow> findByCategoryId(Long categoryId);
 
 }
