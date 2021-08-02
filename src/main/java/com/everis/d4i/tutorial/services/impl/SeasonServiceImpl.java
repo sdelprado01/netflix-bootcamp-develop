@@ -3,6 +3,7 @@ package com.everis.d4i.tutorial.services.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.everis.d4i.tutorial.json.response.SeasonResponseRest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.everis.d4i.tutorial.entities.Season;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
 import com.everis.d4i.tutorial.exceptions.NotFoundException;
-import com.everis.d4i.tutorial.json.SeasonRest;
+import com.everis.d4i.tutorial.json.request.SeasonRequestRest;
 import com.everis.d4i.tutorial.repositories.SeasonRepository;
 import com.everis.d4i.tutorial.services.SeasonService;
 import com.everis.d4i.tutorial.utils.constants.ExceptionConstants;
@@ -24,16 +25,16 @@ public class SeasonServiceImpl implements SeasonService {
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@Override
-	public List<SeasonRest> getSeasonsByTvShow(Long tvShowId) throws NetflixException {
+	public List<SeasonResponseRest> getSeasonsByTvShow(Long tvShowId) throws NetflixException {
 		return seasonRepository.findByTvShowId(tvShowId).stream()
-				.map(season -> modelMapper.map(season, SeasonRest.class)).collect(Collectors.toList());
+				.map(season -> modelMapper.map(season, SeasonResponseRest.class)).collect(Collectors.toList());
 	}
 
 	@Override
-	public SeasonRest getSeasonByTvShowIdAndSeasonNumber(Long tvShowId, short seasonNumber) throws NetflixException {
+	public SeasonResponseRest getSeasonByTvShowIdAndSeasonNumber(Long tvShowId, short seasonNumber) throws NetflixException {
 		Season season = seasonRepository.findByTvShowIdAndNumber(tvShowId, seasonNumber)
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON));
-		return modelMapper.map(season, SeasonRest.class);
+		return modelMapper.map(season, SeasonResponseRest.class);
 	}
 
 }

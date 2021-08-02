@@ -1,0 +1,4 @@
+INSERT INTO CATEGORIES_TV_SHOWS VALUES
+   (1, 3),
+   (2, 1),
+   (3, 2);

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.everis.d4i.tutorial.json.response.CategoryResponseRest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.everis.d4i.tutorial.controllers.CategoryController;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
-import com.everis.d4i.tutorial.json.CategoryRest;
+import com.everis.d4i.tutorial.json.request.CategoryRequestRest;
 import com.everis.d4i.tutorial.responses.NetflixResponse;
 import com.everis.d4i.tutorial.services.CategoryService;
 import com.everis.d4i.tutorial.utils.constants.CommonConstants;
@@ -34,7 +35,7 @@ public class CategoryControllerImpl implements CategoryController {
 	@Override
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public NetflixResponse<List<CategoryRest>> getCategories() throws NetflixException {
+	public NetflixResponse<List<CategoryResponseRest>> getCategories() throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
 				categoryService.getCategories());
 	}
@@ -42,11 +43,11 @@ public class CategoryControllerImpl implements CategoryController {
 	@Override
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public NetflixResponse<CategoryRest> createCategory(
-			@ApiParam(value = RestConstants.PARAMETER_CATEGORY, required = true) @RequestBody @Valid final CategoryRest categoryRest)
+	public NetflixResponse<CategoryResponseRest> createCategory(
+			@ApiParam(value = RestConstants.PARAMETER_CATEGORY, required = true) @RequestBody @Valid final CategoryRequestRest categoryRequestRest)
 			throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
-				categoryService.createCategories(categoryRest));
+				categoryService.createCategories(categoryRequestRest));
 	}
 
 }
