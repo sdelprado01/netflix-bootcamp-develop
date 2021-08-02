@@ -51,11 +51,8 @@ public class ActorServiceImpl implements ActorService {
         Actor actor = actorRepository.getOne(id);
         List<Chapter> participatingChapters = chapterRepository.findByActorsId(Collections.singletonList(actor.getId()));
         Set<TvShow> participatingTvShows = new HashSet<>();
-        for (Chapter chapter:
-             participatingChapters) {
-            participatingTvShows.add(chapter.getSeason().getTvShow());
-        }
-        //Una lista de Tv Shows en los que ha participado
+
+        participatingChapters.stream().forEach(chapter -> participatingTvShows.add(chapter.getSeason().getTvShow()));
 
         List<TvShowResponseRest> tvShowResponseRestList = participatingTvShows.stream()
                 .map(tvShow -> modelMapper.map(tvShow, TvShowResponseRest.class)).collect(Collectors.toList());
@@ -63,10 +60,7 @@ public class ActorServiceImpl implements ActorService {
         List<ChapterResponseRest> chapterResponseRests = participatingChapters.stream()
                 .map(chapter -> modelMapper.map(chapter, ChapterResponseRest.class)).collect(Collectors.toList());
 
-        for (TvShowResponseRest tvShowResponseRest:
-             tvShowResponseRestList) {
-            tvShowResponseRest.setChapters(chapterResponseRests);
-        }
+        tvShowResponseRestList.stream().forEach(tvShowResponseRest -> tvShowResponseRest.setChapters(chapterResponseRests));
 
         try {
             ActorResponseRest actorResponseRest = modelMapper.map(actor, ActorResponseRest.class);

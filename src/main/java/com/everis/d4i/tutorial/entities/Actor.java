@@ -1,6 +1,7 @@
 package com.everis.d4i.tutorial.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ACTORS")
+@Data
 public class Actor implements Serializable {
 
     @Id
@@ -29,36 +31,4 @@ public class Actor implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "CHAPTER_ID")}
     )
     private List<Chapter> chapters;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Year getBirthYear() {
-        return birthYear;
-    }
-
-    public void setBirthYear(Year birthYear) {
-        this.birthYear = birthYear;
-    }
-
-    public List<Chapter> getChapters() {
-        return chapters;
-    }
-
-    public void setChapters(List<Chapter> chapters) {
-        this.chapters = chapters;
-    }
 }
